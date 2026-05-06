@@ -402,6 +402,52 @@
   footer span        { font-size: 0.8rem; color: rgba(255,255,255,0.38); }
   footer strong      { color: rgba(255,255,255,0.65); font-weight: 600; }
   footer .accent     { color: var(--teal); font-weight: 600; font-size: 0.8rem; }
+
+  .nav-icon {
+  width: 18px;
+  height: 18px;
+  display: block;
+  margin: 0 auto 4px;
+  opacity: 0.5;
+  transition: opacity 0.15s;
+}
+.nav-link {
+  text-align: center;
+  padding: 0.75rem 1rem;
+}
+.nav-link.active .nav-icon,
+.nav-link:hover .nav-icon {
+  opacity: 1;
+}
+
+  .chip {
+  position: relative;
+  cursor: pointer;
+}
+.chip::after {
+  content: attr(data-tip);
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--ink);
+  color: rgba(255,255,255,0.88);
+  font-size: 0.78rem;
+  line-height: 1.5;
+  padding: 0.6rem 0.85rem;
+  border-radius: 8px;
+  width: 220px;
+  text-align: left;
+  font-weight: 400;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.18s;
+  z-index: 100;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.2);
+}
+.chip:hover::after {
+  opacity: 1;
+}
 </style>
 </head>
 <body>
@@ -467,13 +513,28 @@
 
 <!-- NAV -->
 <div class="nav-wrap">
-  <nav>
-    <a href="#" class="nav-link active" onclick="showSection('panoramica', this)">Panoramica</a>
-    <a href="#" class="nav-link" onclick="showSection('struttura', this)">Come strutturarlo</a>
-    <a href="#" class="nav-link" onclick="showSection('esempi', this)">Esempi a confronto</a>
-    <a href="#" class="nav-link" onclick="showSection('checklist', this)">Checklist</a>
-    <a href="#" class="nav-link" onclick="showSection('segnali', this)">Cosa conta per l'IA</a>
-  </nav>
+<nav>
+  <a href="#" class="nav-link active" onclick="showSection('panoramica', this)">
+    <img src="ICONA_1.png" alt="Panoramica" class="nav-icon">
+    <span>Panoramica</span>
+  </a>
+  <a href="#" class="nav-link" onclick="showSection('struttura', this)">
+    <img src="ICONA_2.png" alt="Come strutturarlo" class="nav-icon">
+    <span>Come strutturarlo</span>
+  </a>
+  <a href="#" class="nav-link" onclick="showSection('esempi', this)">
+    <img src="ICONA_3.png" alt="Esempi a confronto" class="nav-icon">
+    <span>Esempi a confronto</span>
+  </a>
+  <a href="#" class="nav-link" onclick="showSection('checklist', this)">
+    <img src="ICONA_4.png" alt="Checklist" class="nav-icon">
+    <span>Checklist</span>
+  </a>
+  <a href="#" class="nav-link" onclick="showSection('segnali', this)">
+    <img src="ICONA_5.png" alt="Cosa conta per l'IA" class="nav-icon">
+    <span>Cosa conta per l'IA</span>
+  </a>
+</nav>
 </div>
 
 <main>
@@ -631,40 +692,40 @@
   </section>
 
   <!-- SEGNALI -->
-  <section id="segnali">
-    <p class="section-lead">
-      Questi sono i fattori che i modelli di IA pesano quando devono rispondere a una domanda del tipo "trovo uno specialista a Roma che…".
-    </p>
-    <div class="signal-section">
-      <div class="signal-title">Segnali che aumentano la rilevanza</div>
-      <div class="chips">
-        <span class="chip pos">Condizioni specifiche nominate</span>
-        <span class="chip pos">Zona geografica precisa</span>
-        <span class="chip pos">Profilo del paziente tipo</span>
-        <span class="chip pos">Tecnologie o strumenti usati</span>
-        <span class="chip pos">Lingue parlate</span>
-        <span class="chip pos">Disponibilità online</span>
-        <span class="chip pos">Tempi di attesa indicativi</span>
-        <span class="chip pos">Approccio clinico descritto</span>
-        <span class="chip pos">Testo fluido e contestuale</span>
-      </div>
+<section id="segnali">
+  <p class="section-lead">
+    Questi sono i fattori che i modelli di IA pesano quando devono rispondere a una domanda del tipo "trovo uno specialista a Roma che…". Passa il mouse su ogni segnale per capire cosa significa concretamente.
+  </p>
+  <div class="signal-section">
+    <div class="signal-title">Segnali che aumentano la rilevanza</div>
+    <div class="chips">
+      <span class="chip pos" data-tip="Nomina le patologie specifiche che tratti: acne, rosacea, scompenso cardiaco. Il paziente cerca la sua condizione, non la tua branca.">Condizioni specifiche nominate</span>
+      <span class="chip pos" data-tip="Indica il quartiere o la zona, non solo la città. Le query dei pazienti sono spesso iper-locali: 'dermatologa Prati Roma'.">Zona geografica precisa</span>
+      <span class="chip pos" data-tip="Specifica se segui adulti, bambini, anziani, sportivi o pazienti con patologie croniche. Aiuta l'IA a capire se sei la persona giusta per quel paziente.">Profilo del paziente tipo</span>
+      <span class="chip pos" data-tip="Cita strumenti o metodologie specifiche: dermoscopia digitale, holter, telemedicina. Aumenta la credibilità e la specificità del profilo.">Tecnologie o strumenti usati</span>
+      <span class="chip pos" data-tip="Se parli inglese, francese o altre lingue, scrivilo. È un filtro esplicito per molti pazienti stranieri o expat.">Lingue parlate</span>
+      <span class="chip pos" data-tip="Indicare che accetti consulti online amplia il bacino di pazienti raggiungibili e risponde a query specifiche come 'visita online dermatologa'.">Disponibilità online</span>
+      <span class="chip pos" data-tip="Anche un'indicazione generica ('entro 7 giorni') è molto utile. I pazienti cercano spesso disponibilità rapida e l'IA lo sa.">Tempi di attesa indicativi</span>
+      <span class="chip pos" data-tip="Descrivi come lavori concretamente: approccio integrato, percorso diagnostico, follow-up. Distingue il tuo profilo da descrizioni generiche.">Approccio clinico descritto</span>
+      <span class="chip pos" data-tip="Un testo scritto in frasi complete e fluide è più facile da 'leggere' per un modello linguistico rispetto a elenchi di parole chiave staccate.">Testo fluido e contestuale</span>
     </div>
-    <div class="signal-section">
-      <div class="signal-title">Segnali che abbassano la rilevanza</div>
-      <div class="chips">
-        <span class="chip neg">Testo generico e replicabile</span>
-        <span class="chip neg">Solo aggettivi senza sostanza</span>
-        <span class="chip neg">Nessun riferimento geografico</span>
-        <span class="chip neg">Solo titolo specialistico</span>
-        <span class="chip neg">Autoreferenzialità</span>
-        <span class="chip neg">Testo sotto le 80 parole</span>
-        <span class="chip neg">Nessuna patologia nominata</span>
-      </div>
+  </div>
+  <div class="signal-section">
+    <div class="signal-title">Segnali che abbassano la rilevanza</div>
+    <div class="chips">
+      <span class="chip neg" data-tip="Se la descrizione potrebbe appartenere a qualsiasi altro profilo simile, l'IA non ha motivo di scegliere il tuo rispetto agli altri.">Testo generico e replicabile</span>
+      <span class="chip neg" data-tip="Parole come 'accurato', 'empatico', 'professionale' non aggiungono informazioni utili. L'IA le ignora perché non aiutano a rispondere alla domanda del paziente.">Solo aggettivi senza sostanza</span>
+      <span class="chip neg" data-tip="Senza una zona specifica, il profilo non può essere abbinato a query locali, che sono la maggioranza delle ricerche di specialisti.">Nessun riferimento geografico</span>
+      <span class="chip neg" data-tip="Scrivere solo 'Cardiologo' senza contesto non distingue il tuo profilo da centinaia di altri. Servono sotto-specializzazione e patologie trattate.">Solo titolo specialistico</span>
+      <span class="chip neg" data-tip="Frasi come 'il migliore della città' o 'esperienza pluriennale' non sono verificabili e vengono ignorate dai modelli come rumore di fondo.">Autoreferenzialità</span>
+      <span class="chip neg" data-tip="Sotto le 80 parole il testo non ha abbastanza contesto perché l'IA possa capire chi sei, cosa tratti e per chi. Punta a 150-300 parole.">Testo sotto le 80 parole</span>
+      <span class="chip neg" data-tip="La patologia è esattamente ciò che il paziente digita. Senza nominarla, il profilo non appare nelle risposte pertinenti.">Nessuna patologia nominata</span>
     </div>
-    <div class="insight-box">
-      <strong>Come funziona l'IA nella pratica:</strong> quando un paziente chiede "trovo una dermatologa a Roma Prati che segua bambini con eczema, disponibile entro questa settimana?", il sistema cerca il profilo che risponde meglio a <em>tutte</em> quelle dimensioni insieme: specializzazione, zona, tipo di paziente, patologia, disponibilità. Un testo vago non offre abbastanza segnali e viene semplicemente scartato. Non si tratta di trucchi: si tratta di fornire le informazioni che il paziente stava già cercando.
-    </div>
-  </section>
+  </div>
+  <div class="insight-box">
+    <strong>Come funziona l'IA nella pratica:</strong> quando un paziente chiede "trovo una dermatologa a Roma Prati che segua bambini con eczema, disponibile entro questa settimana?", il sistema cerca il profilo che risponde meglio a <em>tutte</em> quelle dimensioni insieme: specializzazione, zona, tipo di paziente, patologia, disponibilità. Un testo vago non offre abbastanza segnali e viene semplicemente scartato. Non si tratta di trucchi: si tratta di fornire le informazioni che il paziente stava già cercando.
+  </div>
+</section>
 
 </main>
 
